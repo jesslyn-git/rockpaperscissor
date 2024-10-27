@@ -115,6 +115,17 @@ for (const i of buttons) {
             const round = document.querySelector(".current-round");
             round.textContent = "Round " + stateRound + " of 5";
             console.log(`round ${stateRound} of 5`)
+
+            const recap = document.querySelector(".recap")
+            recap.textContent = "Previous Round Recap"
+            const userInput = document.querySelector(".user-input");
+            userInput.textContent = "Your choice: "+humanChoice
+            const computer = document.querySelector(".computer-choice");
+            computer.textContent = "Computer choice: "+computerSelect
+            const status = document.querySelector(".status")
+            status.textContent = "Current round: "+perRound
+            const score = document.querySelector(".score")
+            score.textContent = `your score: ${humanScore} VS computer score: ${computerScore}`
         }
     }
     )
