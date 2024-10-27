@@ -8,28 +8,28 @@ function getComputerChoice() {
 
             return `rock`
         case "2":
-            
+
             return `paper`
 
         case "3":
-            
+
             return `scissor`
 
     }
 }
 
 
-function getHumanChoice() {
-    let sign = prompt(`Open your browser console by right click > Inspect > Console to play the Game. Refresh the restart. Input one of the following: 1 for Rock 2 for Paper 3 for Scissor`)
+function getHumanChoice(sign) {
+    // let sign = prompt(`Open your browser console by right click > Inspect > Console to play the Game. Refresh the restart. Input one of the following: 1 for Rock 2 for Paper 3 for Scissor`)
     // console.log("🚀 ~ getHumanChoice ~ sign:", sign)
     switch (sign) {
-        case "1":
+        case "rock":
             console.log(`userInput: rock`)
             return `rock`
-        case "2":
+        case "paper":
             console.log(`userInput: paper`)
             return `paper`
-        case "3":
+        case "scissor":
             console.log(`userInput: scissor`)
             return `scissor`
     }
@@ -80,43 +80,57 @@ function playRound(computer, human) {
 }
 
 
-function playGame() {
-    let humanScore = 0
-    let computerScore = 0
-    for (let i = 0; i < 5; i++) {
-        console.log(`current round: ${i+1} of 5 total`)
-        const humanSelect = getHumanChoice()
+let stateRound = 1
+let humanScore = 0
+let computerScore = 0
+
+const buttons = document.querySelectorAll(".button")
+for (const i of buttons) {
+    i.addEventListener("click", function (e) {
+        let humanChoice = e.srcElement.value;
+        const humanSelect = getHumanChoice(humanChoice)
         const computerSelect = getComputerChoice()
         console.log(`computer: ${computerSelect}`);
         const perRound = playRound(computerSelect, humanSelect)
-    if (perRound === `Win`) {
-        humanScore += 1
-        console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
-    } else if (perRound === `Lose`) {
-        computerScore += 1
-        console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
-    }
-    else if (perRound === `Draw`) {
-        console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
-        continue
-    }
-    else {console.log(`Error nich`)}
-    }
+        // console.log(perRound, 'perRound', stateRound, 'stateRound')
 
+        if (perRound === `Win`) {
+            humanScore += 1
+            console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
+        } else if (perRound === `Lose`) {
+            computerScore += 1
+            console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
+        }
+        else if (perRound === `Draw`) {
+            console.log(`your score: ${humanScore} VS computer score: ${computerScore}`)
+
+        }
+        else {console.log(`Error nich`) }
+
+        if (stateRound >= 5) {
+            validateGame()
+        }
+        else {
+            stateRound += 1;
+            const round = document.querySelector(".current-round");
+            round.textContent = "Round " + stateRound + " of 5";
+            console.log(`round ${stateRound} of 5`)
+        }
+    }
+    )
+}
+
+function validateGame(){
     if (humanScore > computerScore) {
         console.log(`you BEAT the game`)
         return
     }
-    
     if (humanScore === computerScore) {
         console.log(`it is DRAW`);
         return
     }
-
     if (humanScore < computerScore) {
         console.log(`too bad you LOSE`);
         return
     }
 }
-
-playGame(playRound)
