@@ -20,7 +20,7 @@ function getComputerChoice() {
 
 
 function getHumanChoice() {
-    let sign = prompt(`Open your browser console by right click > Inspect > Console to play the Game. Input one of the following: 1 for Rock 2 for Paper 3 for Scissor`)
+    let sign = prompt(`Open your browser console by right click > Inspect > Console to play the Game. Refresh the restart. Input one of the following: 1 for Rock 2 for Paper 3 for Scissor`)
     // console.log("🚀 ~ getHumanChoice ~ sign:", sign)
     switch (sign) {
         case "1":
